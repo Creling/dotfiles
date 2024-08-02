@@ -1,0 +1,17 @@
+rupa/z
+
+sindresorhus/pure     kind:fpath
+romkatv/powerlevel10k kind:fpath
+
+mattmc3/zfunctions
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+mattmc3/zephyr path:plugins/completion
+
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/sudo
+ohmyzsh/ohmyzsh path:plugins/git
+
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-history-substring-search

@@ -1,0 +1,62 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.config/zsh/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# ${ZDOTDIR:-~}/.zshrc
+
+# Set the root name of the plugins files (.txt and .zsh) antidote will use.
+zsh_plugins=${ZDOTDIR:-~}/.zsh_plugins
+
+# Ensure the .zsh_plugins.txt file exists so you can add plugins.
+[[ -f ${zsh_plugins}.txt ]] || touch ${zsh_plugins}.txt
+
+# Lazy-load antidote from its functions directory.
+fpath=(${ZDOTDIR:-~}/.antidote/functions $fpath)
+autoload -Uz antidote 
+
+# Generate a new static file whenever .zsh_plugins.txt is updated.
+if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
+  antidote bundle <${zsh_plugins}.txt >|${zsh_plugins}.zsh
+fi
+
+# Source your static plugins file.
+source ${zsh_plugins}.zsh
+
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
+
+# To customize prompt, run `p10k configure` or edit ~/.config/zsh/.p10k.zsh.
+[[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
+#====== Custom Environment Variables
+
+export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
+export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
+export _Z_DATA="$XDG_DATA_HOME/z"
+export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export LANG=en_US.UTF-8
+export ARCHFLAGS="-arch $(uname -m)"
+export PATH="$HOME/.local/bin:$PATH"
+
+
+#===== Custom Hotkeys
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
