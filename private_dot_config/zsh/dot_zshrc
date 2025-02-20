@@ -52,11 +52,19 @@ export _Z_DATA="$XDG_DATA_HOME/z"
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export LANG=en_US.UTF-8
 export ARCHFLAGS="-arch $(uname -m)"
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$HOME/.local/bin:$PATH"
 
+
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+source "$HOME/.rye/env"
 
 #===== Custom Hotkeys
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
+
+[[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
