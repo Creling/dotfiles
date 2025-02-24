@@ -42,10 +42,13 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+alias history="history 1"
 
 #====== Custom Environment Variables
 
 export HISTFILE="$XDG_STATE_HOME"/zsh/history
+export SAVEHIST=100000
+export HISTSIZE=100000
 export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc
 export XINITRC="$XDG_CONFIG_HOME"/X11/xinitrc
 export _Z_DATA="$XDG_DATA_HOME/z"
@@ -53,8 +56,6 @@ export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export LANG=en_US.UTF-8
 export ARCHFLAGS="-arch $(uname -m)"
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$HOME/.local/bin:$PATH"
-
-
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -68,3 +69,7 @@ bindkey '^[[B' history-substring-search-down
 
 
 [[ "$TERM_PROGRAM" == "vscode" ]] && . "$(code --locate-shell-integration-path zsh)"
+
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+setopt HIST_NO_STORE
